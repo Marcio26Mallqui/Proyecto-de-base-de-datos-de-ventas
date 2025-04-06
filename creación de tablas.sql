@@ -1,5 +1,10 @@
 -- Creación de tablas
 
+DROP TABLE dbo.clientes;
+DROP TABLE dbo.categorias;
+DROP TABLE dbo. productos;
+DROP TABLE dbo.ordenes;
+DROP TABLE detalle_orden;
 
 -- Tabla clientes
 
@@ -11,8 +16,6 @@ CREATE TABLE clientes (
 	cli_ciudad VARCHAR(50)
 );
 
-SELECT * FROM dbo.clientes
-
 -- Tabla categorias
 
 CREATE TABLE categorias(
@@ -20,16 +23,18 @@ CREATE TABLE categorias(
 	categ_nombre VARCHAR(100)
 );
 
-SELECT * FROM dbo.categorias; 
-
 -- Tabla de productos
 
 CREATE TABLE productos(
 	id_prod INT PRIMARY KEY IDENTITY(1,1),
 	id_categ INT REFERENCES categorias(id_categ),
-	prod_nombre VARCHAR(60)
+	prod_nombre VARCHAR(60),
+	precio_unitario DECIMAL(11,2)
 );
  
+-- SELECT * FROM productos
+
+
 
 -- tabla ordenes 
 
@@ -46,8 +51,7 @@ CREATE TABLE detalle_orden (
 	id_detalle_orden INT PRIMARY KEY IDENTITY(1,1),
 	id_orden INT REFERENCES ordenes(id_orden),
 	id_prod INT REFERENCES productos(id_prod),
-	cantidad INT,
-	precio_unitario DECIMAL(11,2),
+	cantidad INT
 );
 
 

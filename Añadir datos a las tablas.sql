@@ -51,22 +51,6 @@ SELECT
 	ROUND((ABS(CHECKSUM(NEWID())) % 1000 + 100) * 1.0, 2) 
 FROM numeros OPTION (MAXRECURSION 50);
 
--- Añadir datos a venta
-
-SELECT * FROM dbo.ventas;
-
-WITH numeros AS (
-	SELECT 1 AS num
-	UNION ALL
-	SELECT num + 1 FROM numeros WHERE num < 1000
-)
-INSERT INTO dbo.ventas (id_cliente, fecha_venta)
-SELECT
-	ABS(CHECKSUM(NEWID())) % 1000 + 1,
-	GETDATE() - (ABS(CHECKSUM(NEWID())) % 365)
-FROM numeros OPTION (MAXRECURSION 1000);
-
-
 -- Añadir datos a la tabla ordenes
 
 SELECT * FROM dbo.ordenes
@@ -97,3 +81,7 @@ SELECT
 	ABS(CHECKSUM(NEWID())) % 50 + 1,
 	ROUND((ABS(CHECKSUM(NEWID())) % 10 + 1) * 1.0, 2)
 FROM numeros  OPTION (MAXRECURSION 1000); 
+
+
+
+
