@@ -44,12 +44,12 @@ WITH numeros AS (
 	UNION ALL
 	SELECT num + 1 FROM numeros WHERE num < 50 
 )
-INSERT INTO productos (id_categ, prod_nombre)
+INSERT INTO productos (id_categ, prod_nombre, precio_unitario)
 SELECT
-	ABS(CHECKSUM(NEWID())) % 6 +1 ,
-	'producto' + CAST(num AS CHAR)
+	ABS(CHECKSUM(NEWID())) % 6 +1,
+	'producto' + CAST(num AS CHAR),
+	ROUND((ABS(CHECKSUM(NEWID())) % 1000 + 100) * 1.0, 2) 
 FROM numeros OPTION (MAXRECURSION 50);
-
 
 -- Añadir datos a venta
 
@@ -66,3 +66,34 @@ SELECT
 	GETDATE() - (ABS(CHECKSUM(NEWID())) % 365)
 FROM numeros OPTION (MAXRECURSION 1000);
 
+
+-- Añadir datos a la tabla ordenes
+
+SELECT * FROM dbo.ordenes
+
+WITH numeros AS (
+	SELECT 1 AS num
+	UNION ALL
+	SELECT num + 1 FROM numeros WHERE num < 1000
+)
+INSERT INTO ordenes (id_cliente,  fecha_orden)
+SELECT 
+	ABS(CHECKSUM(NEWID())) % 1000 + 1,
+	GETDATE() - (ABS(CHECKSUM(NEWID())) % 365)
+FROM numeros OPTION (MAXRECURSION 1000);
+
+-- Añadir datos a la tabla detalle_orden
+
+SELECT * FROM dbo.detalle_orden
+
+WITH numeros AS (
+	SELECT 1 AS num
+	UNION ALL
+	SELECT num + 1 FROM numeros WHERE num < 1000
+)
+INSERT INTO dbo.detalle_orden (id_orden, id_prod, cantidad)
+SELECT 
+	num,
+	ABS(CHECKSUM(NEWID())) % 50 + 1,
+	ROUND((ABS(CHECKSUM(NEWID())) % 10 + 1) * 1.0, 2)
+FROM numeros  OPTION (MAXRECURSION 1000); 

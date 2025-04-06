@@ -31,23 +31,14 @@ CREATE TABLE productos(
 );
  
 
--- tabla ventas
-
-CREATE TABLE ventas(
-	id_venta INT PRIMARY KEY IDENTITY(1,1),
-	id_cliente INT REFERENCES clientes(id_cliente),
-	fecha_venta DATE,
-	total_venta DECIMAL(11,2)
-);
-
-
 -- tabla ordenes 
 
 CREATE TABLE ordenes (
 	id_orden INT PRIMARY KEY IDENTITY(1,1),
-	id_venta INT REFERENCES ventas(id_venta),
+	id_cliente INT REFERENCES clientes(id_cliente),
 	fecha_orden DATE
 );
+
 
 -- Tabla detalle_ ordenes
 
@@ -56,7 +47,7 @@ CREATE TABLE detalle_orden (
 	id_orden INT REFERENCES ordenes(id_orden),
 	id_prod INT REFERENCES productos(id_prod),
 	cantidad INT,
-	precio_unitario DECIMAL(11,2)
+	precio_unitario DECIMAL(11,2),
 );
 
 
