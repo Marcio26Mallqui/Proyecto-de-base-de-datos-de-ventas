@@ -30,6 +30,16 @@ CREATE TABLE productos(
 
 -- SELECT * FROM productos
 
+-- Tabla de proveedores 
+
+CREATE TABLE proveedores(
+	id_proveedor INT PRIMARY KEY IDENTITY(1,1),
+	prov_nombre_completo VARCHAR(100),
+	prov_telefono VARCHAR(20),
+	prov_ciudad VARCHAR(50)
+); 
+
+
 -- Tabla empleados
 
 CREATE TABLE empleados(
@@ -42,7 +52,7 @@ CREATE TABLE empleados(
 
 -- tabla ordenes 
 
-CREATE TABLE ordenes (
+CREATE TABLE ordenes(
 	id_orden INT PRIMARY KEY IDENTITY(1,1),
 	id_cliente INT REFERENCES clientes(id_cliente),
 	id_empleado INT REFERENCES empleados(id_empleado),
@@ -52,7 +62,7 @@ CREATE TABLE ordenes (
 
 -- Tabla detalle_ ordenes
 
-CREATE TABLE detalle_orden (
+CREATE TABLE detalle_ordenes(
 	id_detalle_orden INT PRIMARY KEY IDENTITY(1,1),
 	id_orden INT REFERENCES ordenes(id_orden),
 	id_prod INT REFERENCES productos(id_prod),
@@ -62,12 +72,13 @@ CREATE TABLE detalle_orden (
 
 -- Eliminación de tablas
 
+DROP TABLE dbo.proveedores;
 DROP TABLE dbo.empleados;
 DROP TABLE dbo.clientes;
 DROP TABLE dbo.categorias;
 DROP TABLE dbo. productos;
 DROP TABLE dbo.ordenes;
-DROP TABLE detalle_orden;
+DROP TABLE detalle_ordenes;
 
 
 
