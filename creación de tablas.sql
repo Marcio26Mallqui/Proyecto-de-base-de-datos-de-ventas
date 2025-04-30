@@ -28,7 +28,7 @@ CREATE TABLE productos(
 	stock INT
 );
 
--- SELECT * FROM productos
+
 
 -- Tabla de proveedores 
 
